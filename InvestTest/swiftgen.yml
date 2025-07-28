@@ -1,0 +1,40 @@
+xcassets:
+  - inputs: DesignKit/Resources/Images.xcassets
+    outputs:
+      - templateName: swift5
+        output: DesignKit/Resources/Images+Generated.swift
+        params:
+          enumName: Icons
+          imageAliasName: IconTypeAlias
+          imageTypeName: Icon
+          publicAccess: true
+  - inputs: DesignKit/Resources/Colors.xcassets
+    outputs:
+      - templateName: swift5
+        output: DesignKit/Resources/Colors+Generated.swift
+        params:
+          enumName: Colors
+          publicAccess: true
+  - inputs: InvestTest/Resources/Images.xcassets
+    outputs:
+      - templateName: swift5
+        output: InvestTest/Resources/Images+Generated.swift
+        params:
+          enumName: Icons
+          imageAliasName: IconTypeAlias
+          imageTypeName: Icon
+strings:
+  - inputs: InvestTest/Resources/ru.lproj
+    outputs:
+        - templateName: structured-swift5
+          output: InvestTest/Resources/Localization+Generated.swift
+          params:
+            enumName: Localization
+fonts:
+  - inputs: DesignKit/Resources/Fonts
+    outputs:
+      - templateName: swift5
+        output: DesignKit/Resources/Fonts+Generated.swift
+        params:
+          enumName: Fonts
+          publicAccess: true

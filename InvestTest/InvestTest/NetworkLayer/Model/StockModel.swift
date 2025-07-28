@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct StockModel: Decodable {
+struct StockModel: Codable, Equatable {
     let symbol: String
     let name: String
     let price: Decimal
     let change: Decimal
     let changePercent: Double
     let logo: String
+
+    var isPositive: Bool {
+        return change >= 0
+    }
 }

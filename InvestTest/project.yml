@@ -1,0 +1,100 @@
+name: InvestTest
+configs:
+    Release: release
+    Debug: debug
+options:
+  preGenCommand: ./.pregen.sh
+  postGenCommand: ./.postgen.sh
+  groupSortPosition: bottom
+  generateEmptyDirectories: true
+  minimumXcodeGenVersion: "2.35.0"
+  bundleIdPrefix: dev.AirCrew..InvestTest
+  deploymentTarget:
+    iOS: 15.0
+attributes:
+  BuildIndependentTargetsInParallel: true
+settings:
+    base:
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        TARGETED_DEVICE_FAMILY: 1,2
+        GENERATE_INFOPLIST_FILE: YES
+        ENABLE_MODULE_VERIFIER: true
+        DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+        MODULE_VERIFIER_SUPPORTED_LANGUAGES: "objective-c objective-c++"
+        MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS: "gnu11 gnu++14"
+        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+        INFOPLIST_KEY_UIApplicationSceneManifest_UIApplicationSupportsMultipleScenes: NO
+    configs:
+        Release:
+            ENABLE_TESTABILITY: NO
+            SWIFT_COMPILATION_MODE: wholemodule
+            SWIFT_OPTIMIZATION_LEVEL: -O
+            VALIDATE_PRODUCT: YES
+            DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+        Debug:
+            ENABLE_TESTABILITY: YES
+            SWIFT_COMPILATION_MODE: singlefile
+            SWIFT_OPTIMIZATION_LEVEL: -Onone
+            VALIDATE_PRODUCT: NO
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG BETA
+targets:
+    AuthorizationTest:
+        type: application
+        platform: iOS
+        sources:
+            - path: InvestTest/Resources/LaunchScreen.storyboard
+              type: file
+              buildPhase: resources
+        sources:
+            - path: InvestTest
+        settings:
+            base:
+                APPLICATION_EXTENSION_API_ONLY: YES
+        dependencies:
+            - target: DesignKit
+        scheme: {}
+        postbuildScripts:
+            - name: SwiftGen
+              basedOnDependencyAnalysis: false
+              script: |
+                        # Adds support for Apple Silicon brew directory
+                        export PATH="$PATH:/opt/homebrew/bin"
+                        swiftgen
+        settings:
+            base:
+                UILaunchStoryboardName: LaunchScreen
+                UIMainStoryboardFile: ~
+                PRODUCT_BUNDLE_IDENTIFIER: dev.AirCrew.InvestTest
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
+                TARGETED_DEVICE_FAMILY: 1,2
+                CURRENT_PROJECT_VERSION: 1
+                GENERATE_INFOPLIST_FILE: true
+                INFOPLIST_FILE: InvestTest/Resources/Info.plist
+                ONLY_ACTIVE_ARCH: YES
+                OTHER_LDFLAGS: "$(inherited)"
+                SWIFT_PRECOMPILE_BRIDGING_HEADER: YES
+                CLANG_CXX_LANGUAGE_STANDARD: "gnu++17"
+                CLANG_CXX_LIBRARY: "libc++"
+                ENABLE_BITCODE: NO
+                GCC_PREPROCESSOR_DEFINITIONS:
+                                - $(inherited)
+                                - WK_WEB_VIEW_ONLY=1
+                ASSETCATALOG_COMPILER_APPICON_NAME: $(_ALTERNATIVE_APPICON_NAME:default=AppIcon)
+                INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+                INFOPLIST_KEY_UIApplicationSceneManifest_UIApplicationSupportsMultipleScenes: NO
+    DesignKit:
+        type: framework
+        platform: iOS
+        deploymentTarget: 15.0
+        sources:
+            - path: DesignKit
+        settings:
+            base:
+                PRODUCT_BUNDLE_IDENTIFIER: dev.AirCrew.InvestTest.DesignKit
+                MARKETING_VERSION: 1.0
+                GENERATE_INFOPLIST_FILE: YES
